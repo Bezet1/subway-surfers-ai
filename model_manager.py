@@ -6,21 +6,17 @@ from src.trainer import train_model
 from src.evaluator import evaluate_model
 from utils.predict import predict_image
 from utils.plot_metrics import plot_training_metrics
+from src.config import DATA_DIR, MODEL_PATH, CLASS_NAMES, SAMPLE_IMAGE_PATH
 
-data_dir = os.path.join("screen-collector", "screens")
-model_path = "trained_models/best_model.h5"
-default_class_names = ['DOWN', 'LEFT', 'RIGHT', 'UP']
-img_to_predict = "screen-collector/screens/DOWN/example2.png"
-
-if os.path.exists(model_path):
+if os.path.exists(MODEL_PATH):
   print("\nModel found. Loading existing model...")
-  model = tf.keras.models.load_model(model_path)
+  model = tf.keras.models.load_model(MODEL_PATH)
 
-  predicted_class, confidence = predict_image(model, img_to_predict, default_class_names)
+  predicted_class, confidence = predict_image(model, SAMPLE_IMAGE_PATH, CLASS_NAMES)
   print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}")
 
 else:
-  data, class_names = load_data(data_dir, img_size=(256, 256), batch_size=32)
+  data, class_names = load_data(DATA_DIR, img_size=(256, 256), batch_size=32)
   default_class_names = class_names
   train_size = int(0.7 * len(data))
   val_size = int(0.2 * len(data)) + 1
@@ -37,7 +33,7 @@ else:
 
   print("\n\nTraining new model...")
   model = build_model(num_classes=len(default_class_names))
-  history = train_model(model, train_data, val_data, model_path)
+  history = train_model(model, train_data, val_data, MODEL_PATH)
   plot_training_metrics(history)
 
   metrics = evaluate_model(model, test_data)
