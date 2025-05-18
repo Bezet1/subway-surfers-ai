@@ -38,7 +38,7 @@ def select_screen_area():
         if rectangle_id:
             canvas.delete(rectangle_id)
         rectangle_id = canvas.create_rectangle(start_x, start_y, start_x, start_y, 
-                                             outline='red', width=2)
+                                             outline='yellow', width=3, fill='#222222')
     
     # Function handling mouse movement
     def on_move(event):
