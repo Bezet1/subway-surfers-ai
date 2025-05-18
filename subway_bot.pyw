@@ -7,7 +7,8 @@ import time
 from PIL import ImageGrab
 from utils.predict import predict_image
 
-DELAY = 0.3
+DELAY = 0.5
+precision_threshold = 0.99
 paused = False
 
 if not os.path.exists(MODEL_PATH):
@@ -41,7 +42,7 @@ while True:
     continue
   
   print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}")
-  if confidence > 0.95:
+  if confidence > precision_threshold:
     if predicted_class == "LEFT":
       print("\nLEFT")
       keyboard.press_and_release('left')
