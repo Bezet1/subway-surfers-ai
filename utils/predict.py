@@ -1,8 +1,7 @@
 import tensorflow as tf
 import cv2
 
-def predict_image(model, img_to_predict, class_names = ["DOWN", "LEFT", "RIGHT", "UP"]):
-  img = cv2.cvtColor(cv2.imread(img_to_predict), cv2.COLOR_BGR2RGB)
+def predict_image(model, img, class_names = ["DOWN", "LEFT", "RIGHT", "UP"]):
   resize = tf.image.resize(img, (256, 256))
 
   prediction = model.predict(tf.expand_dims(resize/255, 0))

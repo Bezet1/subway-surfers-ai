@@ -7,12 +7,14 @@ from src.evaluator import evaluate_model
 from utils.predict import predict_image
 from utils.plot_metrics import plot_training_metrics
 from src.config import DATA_DIR, MODEL_PATH, CLASS_NAMES, SAMPLE_IMAGE_PATH
+import cv2
 
 if os.path.exists(MODEL_PATH):
   print("\nModel found. Loading existing model...")
   model = tf.keras.models.load_model(MODEL_PATH)
-
-  predicted_class, confidence = predict_image(model, SAMPLE_IMAGE_PATH, CLASS_NAMES)
+  img = cv2.cvtColor(cv2.imread(SAMPLE_IMAGE_PATH), cv2.COLOR_BGR2RGB)
+  predicted_class, confidence = predict_image(model, img, CLASS_NAMES)
+  
   print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}")
 
 else:
