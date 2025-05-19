@@ -1,5 +1,4 @@
 import tensorflow as tf
-import cv2
 
 def predict_image(model, img, class_names = ["DOWN", "LEFT", "RIGHT", "UP"]):
   resize = tf.image.resize(img, (256, 256))

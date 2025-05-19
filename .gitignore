@@ -1,4 +1,4 @@
-ss_env/
+venv/
 trained_models/
 logs/
 __pycache__/
