@@ -55,5 +55,7 @@ while True:
     elif predicted_class == "DOWN":
       print("\nDOWN")
       keyboard.press_and_release('down')
+    elif predicted_class == "NONE":
+      print("\nNONE - No action needed")
 
   time.sleep(DELAY)

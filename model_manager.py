@@ -7,7 +7,7 @@ from src.evaluator import evaluate_model
 from utils.predict import predict_image
 from utils.plot_metrics import plot_training_metrics
 from src.config import DATA_DIR, MODEL_PATH, CLASS_NAMES, SAMPLE_IMAGE_PATH
-import cv2
+#import cv2
 
 data, class_names = load_data(DATA_DIR, img_size=(256, 256), batch_size=32)
 default_class_names = class_names

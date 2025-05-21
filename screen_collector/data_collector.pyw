@@ -13,7 +13,7 @@ paused = False
 selection_area = None
 
 # Create folders for different directions
-folder_names = ["LEFT", "RIGHT", "UP", "DOWN"]
+folder_names = ["LEFT", "RIGHT", "UP", "DOWN", "NONE"]
 for folder_name in folder_names:
     folder_path = os.path.join(screens_path, folder_name)
     try:
@@ -83,6 +83,16 @@ while True:
         else:
             snapshot = ImageGrab.grab()
         save_path = os.path.join(screens_path, "DOWN", f"{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}-{datetime.datetime.now().microsecond//1000:03d}.png")
+        snapshot.save(save_path)
+        print(f"Screenshot saved to {save_path}")
+        time.sleep(0.1)
+    
+    elif keyboard.is_pressed('ctrl'):
+        if selection_area:
+            snapshot = ImageGrab.grab(bbox=selection_area)
+        else:
+            snapshot = ImageGrab.grab()
+        save_path = os.path.join(screens_path, "NONE", f"{datetime.datetime.now().strftime('%Y-%m-%d-%H-%M-%S')}-{datetime.datetime.now().microsecond//1000:03d}.png")
         snapshot.save(save_path)
         print(f"Screenshot saved to {save_path}")
         time.sleep(0.1)

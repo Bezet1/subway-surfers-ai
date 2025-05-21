@@ -16,7 +16,7 @@ def build_model(input_shape=(256, 256, 3), num_classes=4):
   model.add(Flatten())
 
   model.add(Dense(256, activation='relu'))
-  model.add(Dense(4, activation='softmax'))
+  model.add(Dense(5, activation='softmax'))
 
   model.compile(optimizer='adam',loss=CategoricalCrossentropy(), metrics=['accuracy'])
 
