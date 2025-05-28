@@ -42,7 +42,7 @@ while True:
     continue
   
   print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}")
-  if confidence > precision_threshold:
+  if confidence >= precision_threshold:
     if predicted_class == "LEFT":
       print("\nLEFT")
       keyboard.press_and_release('left')
