@@ -3,4 +3,4 @@ trained_models/
 logs/
 __pycache__/
 *.py[cod]
-screen_collector/screens/UP
+screen_collector/screens/
