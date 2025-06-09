@@ -1,6 +1,6 @@
 from src.config import *
 from src.data_loader import load_data_improved
-from src.model_builder import build_improved_cnn, build_transfer_model
+from src.model_builder import build_improved_cnn
 from src.trainer import train_model_improved
 from src.data_analyzer import analyze_dataset
 from src.confusion_visualizer import plot_confusion_matrix
@@ -23,7 +23,6 @@ def main():
     
     print("\n3. Budowanie modelu...")
     model = build_improved_cnn(input_shape=(*IMG_SIZE, 3), num_classes=len(class_names))
-    # model = build_transfer_model(input_shape=(*IMG_SIZE, 3), num_classes=len(class_names))
     
     print(model.summary())
     

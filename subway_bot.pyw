@@ -8,7 +8,7 @@ from PIL import ImageGrab
 from utils.predict import predict_image
 
 DELAY = 0.4
-precision_threshold = 0.70
+precision_threshold = 0.60
 paused = False
 
 if not os.path.exists(MODEL_PATH):
