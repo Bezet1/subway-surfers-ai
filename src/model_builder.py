@@ -6,26 +6,6 @@ from tensorflow.keras.applications import MobileNetV2, EfficientNetB0
 from tensorflow.keras.optimizers import Adam, AdamW
 from tensorflow.keras.regularizers import l2
 
-def build_model(input_shape=(256, 256, 3), num_classes=4):
-    model = Sequential()
-    model.add(Conv2D(32, (3, 3), activation='relu', input_shape=(256, 256, 3)))
-    model.add(MaxPooling2D())
-
-    model.add(Conv2D(32, (3, 3), activation='relu'))
-    model.add(MaxPooling2D())
-
-    model.add(Conv2D(16, (3, 3), activation='relu'))
-    model.add(MaxPooling2D())
-
-    model.add(Flatten())
-
-    model.add(Dense(256, activation='relu'))
-    model.add(Dense(5, activation='softmax'))
-
-    model.compile(optimizer='adam', loss=CategoricalCrossentropy(), metrics=['accuracy'])
-
-    return model
-
 def build_improved_cnn(input_shape=(224, 224, 3), num_classes=5):
   model = Sequential([
     # First convolutional layer
