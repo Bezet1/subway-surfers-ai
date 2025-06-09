@@ -1,6 +1,7 @@
 import tensorflow as tf
 from src.config import *
-def predict_image(model, img, class_names = ["DOWN", "LEFT", "RIGHT", "UP"]):
+
+def predict_image(model, img, class_names=CLASS_NAMES):
   resize = tf.image.resize(img, IMG_SIZE)
 
   prediction = model.predict(tf.expand_dims(resize/255, 0))
