@@ -7,6 +7,11 @@ import tkinter as tk
 from tkinter import messagebox
 import pyautogui  
 from src.screen_selector import select_screen_area
+import sys
+
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
+from config import *
+from utils.get_speed_category import get_speed_category
 
 # Base screens path
 base_screens_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'screens')
@@ -17,15 +22,13 @@ selection_area = None
 start_time = time.time()
 elapsed_time = 0
 
-# Create speed category folders
-speed_categories = ["slow", "medium", "fast"]
-for category in speed_categories:
+for category in SPEED_CATEGORIES:
     category_path = os.path.join(base_screens_path, category)
     os.makedirs(category_path, exist_ok=True)
     print(f"Speed category directory '{category}' ready.")
     
     # Create action folders within each speed category
-    action_classes = ["LEFT", "RIGHT", "UP", "DOWN", "NONE"]
+    action_classes = CLASS_NAMES
     for action in action_classes:
         action_path = os.path.join(category_path, action)
         os.makedirs(action_path, exist_ok=True)
@@ -41,15 +44,6 @@ if selection_area:
     print("Press Space to pause/resume. Press r to reset timer. Press Shift+Esc to exit.")
 else:
     print("No area selected. Using full screen capture.")
-
-# Function to get time category based on elapsed time
-def get_speed_category(elapsed_seconds):
-    if elapsed_seconds < 90:  # 0 to 1:30 minutes
-        return "slow"
-    elif elapsed_seconds < 150:  # 1:30 to 2:30 minutes
-        return "medium"
-    else:  # 2:30+ minutes
-        return "fast"
 
 # Main loop
 while True:

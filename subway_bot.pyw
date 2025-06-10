@@ -1,4 +1,4 @@
-from src.config import *
+from config import *
 import tensorflow as tf
 import os
 from screen_collector.src.screen_selector import select_screen_area
@@ -6,9 +6,8 @@ import keyboard
 import time
 from PIL import ImageGrab
 from utils.predict import predict_image
+from utils.get_speed_category import get_speed_category
 
-DELAY = 0.4
-precision_threshold = 0.60
 paused = False
 
 # Timer variables
@@ -34,23 +33,22 @@ if not selection_area:
     print("No screen area selected. Quit...")
     exit()
 
-# Function to get time category based on elapsed time
-def get_speed_category(elapsed_seconds):
-    if elapsed_seconds < 90:  # 0 to 1:30 minutes
-        return "slow"
-    elif elapsed_seconds < 150:  # 1:30 to 2:30 minutes
-        return "medium"
-    else:  # 2:30+ minutes
-        return "fast"
-
 # Function to get the appropriate model based on speed category
 def get_model_for_speed(speed_category):
-    if speed_category == "slow":
+    if speed_category == SLOW_FOLDER:
         return slow_model
-    elif speed_category == "medium":
+    elif speed_category == MEDIUM_FOLDER:
         return medium_model
     else:  # fast
         return fast_model
+    
+def get_delay_for_speed(speed_category):
+    if speed_category == SLOW_FOLDER:
+        return SLOW_DELAY
+    elif speed_category == MEDIUM_FOLDER:
+        return MEDIUM_DELAY
+    else:
+        return FAST_DELAY
 
 print("Bot started. Press space to pause/resume. Press r to reset timer.")
 
@@ -60,6 +58,8 @@ while True:
         elapsed_time = current_time - start_time
         minutes, seconds = divmod(int(elapsed_time), 60)
         speed_category = get_speed_category(elapsed_time)
+        delay = get_delay_for_speed(elapsed_time)
+
         print(f"\rElapsed time: {minutes:02d}:{seconds:02d} - Using {speed_category} model", end="")
     
     if keyboard.is_pressed('space'):
@@ -87,25 +87,25 @@ while True:
         
     except Exception as e:
         print(f"\nError during prediction: {e}")
-        time.sleep(DELAY)
+        time.sleep(delay)
         continue
     
     print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}, using {speed_category} model")
     
-    if confidence >= precision_threshold:
-        if predicted_class == "LEFT":
+    if confidence >= PRECISION_THRESHOLD:
+        if predicted_class == LEFT:
             print("\nLEFT")
             keyboard.press_and_release('left')
-        elif predicted_class == "RIGHT":
+        elif predicted_class == RIGHT:
             print("\nRIGHT")
             keyboard.press_and_release('right')
-        elif predicted_class == "UP":
+        elif predicted_class == UP:
             print("\nUP")
             keyboard.press_and_release('up')
-        elif predicted_class == "DOWN":
+        elif predicted_class == DOWN:
             print("\nDOWN")
             keyboard.press_and_release('down')
-        elif predicted_class == "NONE":
+        elif predicted_class == NONE:
             print("\nNONE - No action needed")
 
-    time.sleep(DELAY)
+    time.sleep(delay)

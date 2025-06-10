@@ -1,5 +1,5 @@
 import tensorflow as tf
-from src.config import *
+from config import *
 
 def predict_image(model, img, class_names=CLASS_NAMES):
   resize = tf.image.resize(img, IMG_SIZE)

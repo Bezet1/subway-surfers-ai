@@ -3,40 +3,7 @@ from tensorflow.keras.callbacks import (ModelCheckpoint, TensorBoard, EarlyStopp
                                       ReduceLROnPlateau, CSVLogger)
 from sklearn.utils import class_weight
 import numpy as np
-from src.config import CLASS_NAMES
-
-def train_model(model, train_data, val_data, model_path, logdir='logs', epochs=20):
-  os.makedirs(os.path.dirname(model_path), exist_ok=True)
-  tensorboard_callback = TensorBoard(log_dir=logdir)
-
-  y_train_labels = []
-  for _, labels in train_data.unbatch():
-    y_train_labels.append(np.argmax(labels.numpy()))
-
-  y_train_labels = np.array(y_train_labels)
-
-  class_weights = class_weight.compute_class_weight(
-    class_weight='balanced',
-    classes=np.unique(y_train_labels),
-    y=y_train_labels
-  )
-  class_weights = dict(enumerate(class_weights))
-
-  checkpoint_cb = ModelCheckpoint(
-    filepath=model_path,
-    save_best_only=True,
-    monitor="val_loss",                 
-    verbose=1
-  )
-
-  history = model.fit(
-    train_data, 
-    epochs=epochs, 
-    validation_data=val_data, 
-    callbacks=[tensorboard_callback, checkpoint_cb],
-    class_weight=class_weights
-  )
-  return history
+from config import CLASS_NAMES
 
 def calculate_class_weights(train_data):
   y_true = []
@@ -62,7 +29,7 @@ def calculate_class_weights(train_data):
   
   return class_weight_dict
 
-def train_model_improved(model, train_data, val_data, model_path, 
+def train_model(model, train_data, val_data, model_path, 
                         logdir='logs', epochs=50, patience=10):
     
   os.makedirs(os.path.dirname(model_path), exist_ok=True)
