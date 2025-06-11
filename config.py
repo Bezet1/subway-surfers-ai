@@ -18,9 +18,9 @@ FAST_DATA_DIR = os.path.join(DATA_DIR, FAST_FOLDER)
 
 # Model paths for each speed category
 MODELS_DIR = os.path.join("trained_models")
-SLOW_MODEL_PATH = os.path.join(MODELS_DIR, "slow_model.h5")
+SLOW_MODEL_PATH = os.path.join(MODELS_DIR, "slow_model.keras")
 MEDIUM_MODEL_PATH = os.path.join(MODELS_DIR, "medium_model.h5")
-FAST_MODEL_PATH = os.path.join(MODELS_DIR, "fast_model.h5")
+FAST_MODEL_PATH = os.path.join(MODELS_DIR, "fast_model.keras")
 
 DOWN = 'DOWN'
 LEFT = 'LEFT'
@@ -47,7 +47,7 @@ MEDIUM_THRESHOLD = 120
 
 #Bot configuration
 SLOW_DELAY = 0.4
-MEDIUM_DELAY = 0.2
+MEDIUM_DELAY = 0.3
 FAST_DELAY = 0.1
 
 PRECISION_THRESHOLD = 0.60
