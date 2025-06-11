@@ -32,7 +32,7 @@ def train_speed_model(speed_category, data_dir, model_path):
         train_data, 
         val_data, 
         model_path,
-        epochs=2,
+        epochs=30,
         patience=10
     )
     

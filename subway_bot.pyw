@@ -39,13 +39,13 @@ def get_model_for_speed(speed_category):
         return slow_model
     elif speed_category == MEDIUM_FOLDER:
         return medium_model
-    else:  # fast
+    else:
         return fast_model
     
-def get_delay_for_speed(speed_category):
-    if speed_category == SLOW_FOLDER:
+def get_delay_for_speed(elapsed_seconds):
+    if elapsed_seconds < SLOW_THRESHOLD:
         return SLOW_DELAY
-    elif speed_category == MEDIUM_FOLDER:
+    elif elapsed_seconds < MEDIUM_THRESHOLD:
         return MEDIUM_DELAY
     else:
         return FAST_DELAY
