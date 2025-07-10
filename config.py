@@ -19,7 +19,7 @@ FAST_DATA_DIR = os.path.join(DATA_DIR, FAST_FOLDER)
 # Model paths for each speed category
 MODELS_DIR = os.path.join("trained_models")
 SLOW_MODEL_PATH = os.path.join(MODELS_DIR, "slow_model.keras")
-MEDIUM_MODEL_PATH = os.path.join(MODELS_DIR, "medium_model.h5")
+MEDIUM_MODEL_PATH = os.path.join(MODELS_DIR, "medium_model.keras")
 FAST_MODEL_PATH = os.path.join(MODELS_DIR, "fast_model.keras")
 
 DOWN = 'DOWN'
