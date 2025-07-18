@@ -51,6 +51,10 @@ def main():
     # Create the models directory if it doesn't exist
     os.makedirs(MODELS_DIR, exist_ok=True)
     
+
+    # Train model
+    # print("\n\n=== TRAINING MODEL ===")
+    # normal_model, normal_history = train_speed_model(SLOW_FOLDER, DATA2_DIR, NORMAL_MODEL_PATH)
     # Train slow model
     print("\n\n=== TRAINING SLOW MODEL ===")
     slow_model, slow_history = train_speed_model(SLOW_FOLDER, SLOW_DATA_DIR, SLOW_MODEL_PATH)
@@ -65,6 +69,7 @@ def main():
     
     print("\n=== ALL MODELS TRAINED SUCCESSFULLY ===")
     return {
+        # "normal": (normal_model, normal_history), 
         "slow": (slow_model, slow_history),
         "medium": (medium_model, medium_history),
         "fast": (fast_model, fast_history)

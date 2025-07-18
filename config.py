@@ -3,6 +3,7 @@ import os
 # Base paths
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join("screen_collector", "screens")
+DATA2_DIR = os.path.join("screen_collector", "slow2")
 
 # Speed folder names
 SLOW_FOLDER = 'slow'
@@ -18,8 +19,9 @@ FAST_DATA_DIR = os.path.join(DATA_DIR, FAST_FOLDER)
 
 # Model paths for each speed category
 MODELS_DIR = os.path.join("trained_models")
-SLOW_MODEL_PATH = os.path.join(MODELS_DIR, "slow_model.keras")
-MEDIUM_MODEL_PATH = os.path.join(MODELS_DIR, "medium_model.keras")
+NORMAL_MODEL_PATH = os.path.join(MODELS_DIR, "normalgiga_model.keras")
+SLOW_MODEL_PATH = os.path.join(MODELS_DIR, "normalgiga_model.keras")
+MEDIUM_MODEL_PATH = os.path.join(MODELS_DIR, "normalgiga_model.keras")
 FAST_MODEL_PATH = os.path.join(MODELS_DIR, "fast_model.keras")
 
 DOWN = 'DOWN'
@@ -46,8 +48,8 @@ SLOW_THRESHOLD = 30
 MEDIUM_THRESHOLD = 120  
 
 #Bot configuration
-SLOW_DELAY = 0.4
+SLOW_DELAY = 0.3
 MEDIUM_DELAY = 0.3
 FAST_DELAY = 0.1
 
-PRECISION_THRESHOLD = 0.60
+PRECISION_THRESHOLD = 0.75

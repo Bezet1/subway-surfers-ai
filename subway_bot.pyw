@@ -10,14 +10,16 @@ from utils.get_speed_category import get_speed_category
 import tkinter as tk
 from tkinter import ttk
 import threading
+import pyautogui
+
 
 paused = True
-
-
+enabled = False
+ # Timer variables
 start_time = time.time()
 elapsed_time = 0
 
-
+# Lane tracking variable
 lane = 0
 
 # Check if models exist
@@ -39,19 +41,19 @@ if not selection_area:
     print("No screen area selected. Quit...")
     exit()
 
-
+# Create GUI window
 root = tk.Tk()
 root.title("Subway Surfers AI Bot")
-root.geometry("200x60")
+root.geometry("400x60")
 root.resizable(False, False)
 
-
+# Position window below selected area
 if selection_area:
     window_x = selection_area[0]
     window_y = selection_area[3] + 10  # 10 pixels below bottom of selected area
-    root.geometry(f"200x60+{window_x}+{window_y}")
+    root.geometry(f"400x60+{window_x}+{window_y}")
 
-
+# Button functions
 def toggle_pause():
     global paused
     paused = not paused
@@ -63,8 +65,19 @@ def reset_timer():
     elapsed_time = 0
     lane = 0
     print("\nTimer reset!")
+def double_click():
+    global enabled
+    enabled = not enabled
+    doubleclick_btn.config(text="Disable DC" if enabled else "Enable DC")
+def double_click_loop():
+    while True:
+        if enabled:
+            pyautogui.click(clicks=2, interval=0.1)
+        time.sleep(3)
 
 
+
+# Create GUI elements
 frame = ttk.Frame(root, padding="10")
 frame.grid(row=0, column=0, sticky=(tk.W, tk.E, tk.N, tk.S))
 
@@ -74,7 +87,10 @@ pause_btn.grid(row=0, column=0, padx=5)
 reset_btn = ttk.Button(frame, text="Reset", command=reset_timer)
 reset_btn.grid(row=0, column=1, padx=5)
 
+doubleclick_btn = ttk.Button(frame, text="Enable DC", command=double_click)
+doubleclick_btn.grid(row=0, column=2, padx=5)
 
+# Configure grid weights
 root.columnconfigure(0, weight=1)
 root.rowconfigure(0, weight=1)
 frame.columnconfigure(0, weight=1)
@@ -148,16 +164,18 @@ def bot_loop():
             time.sleep(delay)
             continue
 
-        print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}, using {speed_category} model, currently on line {current_line()}")
+        print(f"\nPredicted class: {predicted_class}, confidence: {confidence:.2f}, using {speed_category} model, probable line {current_line()}")
 
         if confidence >= PRECISION_THRESHOLD:
-            if predicted_class == LEFT and lane > -1: 
+            if predicted_class == LEFT: 
                 print("\nLEFT")
                 lane -= 1
+                lane = max(lane, -1)
                 keyboard.press_and_release('left')
-            elif predicted_class == RIGHT and lane < 1:  
+            elif predicted_class == RIGHT:  
                 print("\nRIGHT")
                 lane += 1
+                lane = min(lane, 1)
                 keyboard.press_and_release('right')
             elif predicted_class == UP:
                 print("\nUP")
@@ -167,18 +185,15 @@ def bot_loop():
                 keyboard.press_and_release('down')
             elif predicted_class == NONE:
                 print("\nNONE - No action needed")
-            else:
-                
-                if predicted_class == LEFT and lane == -1:
-                    print("\nLEFT - Blocked (already on left lane)")
-                elif predicted_class == RIGHT and lane == 1:
-                    print("\nRIGHT - Blocked (already on right lane)")
+            
 
         time.sleep(delay)
 
 # Start bot in separate thread
 bot_thread = threading.Thread(target=bot_loop, daemon=True)
 bot_thread.start()
+dc_thread = threading.Thread(target=double_click_loop, daemon=True)
+dc_thread.start()
 
 # Start GUI
 root.mainloop()
