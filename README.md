@@ -335,14 +335,6 @@ pip install keyboard --user
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 👥 Authors
-
-- **Jakub Wodyk** - [jw305180@student.polsl.pl](mailto:jw305180@student.polsl.pl)
-- **Bartłomiej Zientek** - [bz305224@student.polsl.pl](mailto:bz305224@student.polsl.pl)
-
-**Supervisor:** dr inż. Krzysztof Hanzel  
-**Institution:** Politechnika Śląska, Katedra Grafiki, Wizji komputerowej i Systemów Cyfrowych
-
 ## 🙏 Acknowledgments
 
 - TensorFlow team for the excellent deep learning framework
