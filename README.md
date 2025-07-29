@@ -353,5 +353,5 @@ This project demonstrates practical applications of:
 ⭐ **Star this repository if you found it helpful!**
 
 🔗 **Links:**
-- [Technical Report](docs/technical_report.pdf)
+- [Technical Report](docs/Technical_Report.pdf)
 - [Dataset Examples](screen_collector/giga%20paka/DOWN)
