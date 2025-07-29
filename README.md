@@ -354,4 +354,4 @@ This project demonstrates practical applications of:
 
 🔗 **Links:**
 - [Technical Report](docs/technical_report.pdf)
-- [Dataset Examples](examples/)
+- [Dataset Examples](screen_collector/giga%20paka/DOWN)
